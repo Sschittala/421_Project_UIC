@@ -4,10 +4,11 @@ from torch.utils.data import TensorDataset, DataLoader
 from sklearn.metrics import mean_absolute_error, classification_report
 import numpy as np
 import pandas as pd
+
 from models.ann_model import ANNModel
 
 train_data = pd.read_csv("../P1_DATA/trac2_CONVT_train.csv")
-dev_data = pd.read_csv("../P1_DATA/trac2_CONVT_dev.csv")
+dev_data = pd.read_csv("../P1_DATA/trac2_CONVT_dev.csv", escapechar='\\', quotechar='"')
 
 X_train = torch.tensor(np.load("../outputs/train_embeddings.npy"), dtype=torch.float32)
 X_dev = torch.tensor(np.load("../outputs/dev_embeddings.npy"), dtype=torch.float32)
