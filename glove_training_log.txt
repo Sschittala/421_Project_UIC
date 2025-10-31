@@ -1,0 +1,67 @@
+
+============================================================
+TRAINING ANN WITH GLOVE EMBEDDINGS
+============================================================
+
+Loaded embeddings:
+  Train: torch.Size([10941, 100])
+  Dev:   torch.Size([990, 100])
+  Test:  torch.Size([2316, 100])
+
+Model Configuration:
+  Input Dimension: 100
+  Hidden Dimension: 256
+  Number of Classes: 3
+  Batch Size: 32
+  Learning Rate: 0.001
+  Epochs: 50
+
+Training started...
+
+Epoch   1/50 - Loss: 2.6621
+Epoch   5/50 - Loss: 2.0269
+Epoch  10/50 - Loss: 1.9546
+Epoch  15/50 - Loss: 1.9038
+Epoch  20/50 - Loss: 1.8853
+Epoch  25/50 - Loss: 1.8370
+Epoch  30/50 - Loss: 1.8282
+Epoch  35/50 - Loss: 1.8058
+Epoch  40/50 - Loss: 1.7834
+Epoch  45/50 - Loss: 1.7650
+Epoch  50/50 - Loss: 1.7646
+
+Training complete!
+
+============================================================
+EVALUATION ON DEVELOPMENT SET
+============================================================
+
+📊 RESULTS:
+
+Emotion Intensity (MAE):     0.5473
+Empathy Intensity (MAE):     0.7718
+Polarity Classification Accuracy: 0.6323
+
+Detailed Polarity Classification Report:
+              precision    recall  f1-score   support
+
+    Negative     0.6786    0.1118    0.1919       170
+     Neutral     0.6098    0.7385    0.6680       436
+    Positive     0.6567    0.7422    0.6968       384
+
+    accuracy                         0.6323       990
+   macro avg     0.6484    0.5308    0.5189       990
+weighted avg     0.6398    0.6323    0.5974       990
+
+
+============================================================
+GENERATING TEST PREDICTIONS
+============================================================
+
+✅ Saved test predictions to: /Users/nishanthnagendran/Documents/UIC related/repos/421_Project_UIC/scripts/../outputs/predictions_ann_glove.csv
+   Total predictions: 2316
+
+============================================================
+TRAINING COMPLETE
+============================================================
+

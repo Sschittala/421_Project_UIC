@@ -1,4 +1,8 @@
 # scripts/train_ann.py
+"""
+Train ANN model for emotion, polarity, and empathy prediction.
+Supports both GloVe and Sentence-BERT embeddings.
+"""
 import os, sys
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT_DIR not in sys.path:
@@ -9,28 +13,41 @@ import pandas as pd
 import torch
 import torch.nn as nn
 from torch.utils.data import TensorDataset, DataLoader
-from sklearn.metrics import mean_absolute_error, classification_report
+from sklearn.metrics import mean_absolute_error, classification_report, accuracy_score
 from models.ann_model import ANNModel
 
-# ---- config (paths resolved relative to this file) ----
+# ---- CONFIG ----
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "../P1_DATA")
 OUT_DIR  = os.path.join(BASE_DIR, "../outputs")
+
+# Choose embedding type: "sbert" or "glove"
+EMBEDDING_TYPE = "sbert"  # Change to "glove" to use GloVe embeddings
+
 BATCH_SIZE = 32
-EPOCHS = 10
+EPOCHS = 50  # Increased for better convergence
 LR = 1e-3
-INPUT_DIM = 384
 NUM_CLASSES = 3
+
+# Set input dimension based on embedding type
+if EMBEDDING_TYPE == "sbert":
+    INPUT_DIM = 384  # Sentence-BERT dimension
+    EMB_SUFFIX = "sbert"
+elif EMBEDDING_TYPE == "glove":
+    INPUT_DIM = 100  # GloVe dimension
+    EMB_SUFFIX = "glove"
+else:
+    raise ValueError(f"Unknown embedding type: {EMBEDDING_TYPE}")
 
 os.makedirs(OUT_DIR, exist_ok=True)
 
-# ---- reproducibility ----
+# ---- Reproducibility ----
 torch.manual_seed(42)
 np.random.seed(42)
 
 device = torch.device("cpu")  # Q1 runs on CPU
 
-# ---- tolerant CSV reader (must match embeddings.py) ----
+# ---- CSV Reader ----
 def read_split(split: str) -> pd.DataFrame:
     path = os.path.join(DATA_DIR, f"trac2_CONVT_{split}.csv")
     return pd.read_csv(
@@ -43,7 +60,11 @@ def read_split(split: str) -> pd.DataFrame:
         on_bad_lines="skip"
     )
 
-# ---- load dataframes ----
+# ---- Load Dataframes ----
+print(f"\n{'='*60}")
+print(f"TRAINING ANN WITH {EMBEDDING_TYPE.upper()} EMBEDDINGS")
+print(f"{'='*60}\n")
+
 train_df = read_split("train")
 dev_df   = read_split("dev")
 test_df  = read_split("test")
@@ -52,46 +73,39 @@ COL_EMO = "Emotion"
 COL_POL = "EmotionalPolarity"
 COL_EMP = "Empathy"
 
-# Robust coercion: handle strings like "positive", blanks, and float-y values
+# ---- Polarity Coercion ----
 def coerce_polarity_inplace(df, col):
-    # map common string labels to numbers
     mapper = {
         "negative": 0, "neg": 0, "-1": 0,
         "neutral":  1, "neu": 1,  "0": 1,
         "positive": 2, "pos": 2,  "1": 2
     }
-    # start from original col as string
     raw = df[col].astype(str).str.strip().str.lower()
     mapped = raw.map(mapper)
-
-    # numeric fallback (handles "2", "2.0", etc.)
     numeric = pd.to_numeric(df[col], errors="coerce")
-
-    # prefer numeric if available, else mapped
-    s = numeric
-    s = s.where(~s.isna(), mapped)
-
-    # round to nearest, fill bads with -1, cast to plain int
+    s = numeric.where(~numeric.isna(), mapped)
     s = pd.to_numeric(s, errors="coerce").round().fillna(-1).astype(int)
-
-    # write back
     df[col] = s
 
 coerce_polarity_inplace(train_df, COL_POL)
-coerce_polarity_inplace(dev_df,   COL_POL)
-# test has no labels, so no need to coerce
+coerce_polarity_inplace(dev_df, COL_POL)
 
-# ---- load embeddings ----
-X_train = torch.tensor(np.load(os.path.join(OUT_DIR, "train_embeddings.npy")), dtype=torch.float32)
-X_dev   = torch.tensor(np.load(os.path.join(OUT_DIR, "dev_embeddings.npy")),   dtype=torch.float32)
-X_test  = torch.tensor(np.load(os.path.join(OUT_DIR, "test_embeddings.npy")),  dtype=torch.float32)
+# ---- Load Embeddings ----
+X_train = torch.tensor(np.load(os.path.join(OUT_DIR, f"train_embeddings_{EMB_SUFFIX}.npy")), dtype=torch.float32)
+X_dev   = torch.tensor(np.load(os.path.join(OUT_DIR, f"dev_embeddings_{EMB_SUFFIX}.npy")),   dtype=torch.float32)
+X_test  = torch.tensor(np.load(os.path.join(OUT_DIR, f"test_embeddings_{EMB_SUFFIX}.npy")),  dtype=torch.float32)
 
-# sanity: shapes must match the frames we will keep
-assert X_train.shape[0] == len(train_df), f"train rows {len(train_df)} != train emb {X_train.shape[0]}"
-assert X_dev.shape[0]   == len(dev_df),   f"dev rows {len(dev_df)} != dev emb {X_dev.shape[0]}"
-assert X_test.shape[0]  == len(test_df),  f"test rows {len(test_df)} != test emb {X_test.shape[0]}"
+print(f"Loaded embeddings:")
+print(f"  Train: {X_train.shape}")
+print(f"  Dev:   {X_dev.shape}")
+print(f"  Test:  {X_test.shape}\n")
 
-# ---- drop invalid polarity rows and keep alignment with embeddings
+# Sanity checks
+assert X_train.shape[0] == len(train_df)
+assert X_dev.shape[0] == len(dev_df)
+assert X_test.shape[0] == len(test_df)
+
+# ---- Drop Invalid Polarity Rows ----
 valid_train_mask = train_df[COL_POL].isin([0, 1, 2])
 if not valid_train_mask.all():
     X_train = X_train[torch.tensor(valid_train_mask.values, dtype=torch.bool)]
@@ -102,7 +116,7 @@ if not valid_dev_mask.all():
     X_dev = X_dev[torch.tensor(valid_dev_mask.values, dtype=torch.bool)]
     dev_df = dev_df.loc[valid_dev_mask].reset_index(drop=True)
 
-# ---- targets
+# ---- Prepare Targets ----
 y_train_emotion  = torch.tensor(train_df[COL_EMO].values, dtype=torch.float32).unsqueeze(1)
 y_train_empathy  = torch.tensor(train_df[COL_EMP].values, dtype=torch.float32).unsqueeze(1)
 y_train_polarity = torch.tensor(train_df[COL_POL].values, dtype=torch.long)
@@ -114,13 +128,22 @@ y_dev_polarity = torch.tensor(dev_df[COL_POL].values, dtype=torch.long)
 train_ds = TensorDataset(X_train, y_train_emotion, y_train_polarity, y_train_empathy)
 train_dl = DataLoader(train_ds, batch_size=BATCH_SIZE, shuffle=True)
 
-# ---- model/loss/optimizer ----
+# ---- Model, Loss, Optimizer ----
 model = ANNModel(input_dim=INPUT_DIM, hidden_dim=256, num_classes=NUM_CLASSES).to(device)
 criterion_reg = nn.MSELoss()
 criterion_cls = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=LR)
 
-# ---- training ----
+print(f"Model Configuration:")
+print(f"  Input Dimension: {INPUT_DIM}")
+print(f"  Hidden Dimension: 256")
+print(f"  Number of Classes: {NUM_CLASSES}")
+print(f"  Batch Size: {BATCH_SIZE}")
+print(f"  Learning Rate: {LR}")
+print(f"  Epochs: {EPOCHS}\n")
+
+# ---- Training Loop ----
+print("Training started...\n")
 for epoch in range(EPOCHS):
     model.train()
     epoch_loss = 0.0
@@ -136,27 +159,55 @@ for epoch in range(EPOCHS):
         loss.backward()
         optimizer.step()
         epoch_loss += loss.item()
-    print(f"Epoch {epoch+1}/{EPOCHS} - Loss: {epoch_loss/len(train_dl):.4f}")
+    
+    avg_loss = epoch_loss / len(train_dl)
+    if (epoch + 1) % 5 == 0 or epoch == 0:
+        print(f"Epoch {epoch+1:3d}/{EPOCHS} - Loss: {avg_loss:.4f}")
 
-# ---- evaluation on dev ----
+print("\nTraining complete!\n")
+
+# ---- Evaluation on Dev Set ----
+print(f"{'='*60}")
+print("EVALUATION ON DEVELOPMENT SET")
+print(f"{'='*60}\n")
+
 model.eval()
 with torch.no_grad():
     dev_e, dev_p, dev_emp = model(X_dev.to(device))
-    mae_e   = mean_absolute_error(dev_df[COL_EMO], dev_e.cpu().squeeze())
-    mae_emp = mean_absolute_error(dev_df[COL_EMP], dev_emp.cpu().squeeze())
-    preds_p = dev_p.argmax(dim=1).cpu()
-    print("Dev Emotion MAE:", mae_e)
-    print("Dev Empathy MAE:", mae_emp)
-    print("Dev Polarity report:\n", classification_report(dev_df[COL_POL], preds_p))
+    
+    # Emotion MAE
+    mae_emotion = mean_absolute_error(dev_df[COL_EMO], dev_e.cpu().squeeze())
+    
+    # Empathy MAE
+    mae_empathy = mean_absolute_error(dev_df[COL_EMP], dev_emp.cpu().squeeze())
+    
+    # Polarity metrics
+    preds_polarity = dev_p.argmax(dim=1).cpu().numpy()
+    true_polarity = dev_df[COL_POL].values
+    accuracy_polarity = accuracy_score(true_polarity, preds_polarity)
+    
+    print("📊 RESULTS:\n")
+    print(f"Emotion Intensity (MAE):     {mae_emotion:.4f}")
+    print(f"Empathy Intensity (MAE):     {mae_empathy:.4f}")
+    print(f"Polarity Classification Accuracy: {accuracy_polarity:.4f}\n")
+    
+    print("Detailed Polarity Classification Report:")
+    print(classification_report(true_polarity, preds_polarity, 
+                                target_names=["Negative", "Neutral", "Positive"],
+                                digits=4))
 
-# ---- predict test and export CSV ----
+# ---- Predict on Test Set ----
+print(f"\n{'='*60}")
+print("GENERATING TEST PREDICTIONS")
+print(f"{'='*60}\n")
+
 with torch.no_grad():
     te_e, te_p, te_emp = model(X_test.to(device))
     te_e   = te_e.cpu().squeeze().numpy()
     te_emp = te_emp.cpu().squeeze().numpy()
     te_pol = te_p.argmax(dim=1).cpu().numpy()
 
-# Use provided id column if present, else synthesize
+# Use provided id column if present
 if "id" in test_df.columns:
     ids = test_df["id"].values
 else:
@@ -169,6 +220,11 @@ pred_df = pd.DataFrame({
     "Empathy": te_emp
 })
 
-out_csv = os.path.join(OUT_DIR, "predictions_ann.csv")
+out_csv = os.path.join(OUT_DIR, f"predictions_ann_{EMB_SUFFIX}.csv")
 pred_df.to_csv(out_csv, index=False)
-print(f"Saved test predictions to: {out_csv}")
+print(f"✅ Saved test predictions to: {out_csv}")
+print(f"   Total predictions: {len(pred_df)}\n")
+
+print(f"{'='*60}")
+print("TRAINING COMPLETE")
+print(f"{'='*60}\n")
