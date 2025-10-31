@@ -1,0 +1,67 @@
+
+============================================================
+TRAINING ANN WITH SBERT EMBEDDINGS
+============================================================
+
+Loaded embeddings:
+  Train: torch.Size([10941, 384])
+  Dev:   torch.Size([990, 384])
+  Test:  torch.Size([2316, 384])
+
+Model Configuration:
+  Input Dimension: 384
+  Hidden Dimension: 256
+  Number of Classes: 3
+  Batch Size: 32
+  Learning Rate: 0.001
+  Epochs: 50
+
+Training started...
+
+Epoch   1/50 - Loss: 2.7802
+Epoch   5/50 - Loss: 1.6310
+Epoch  10/50 - Loss: 1.4647
+Epoch  15/50 - Loss: 1.3380
+Epoch  20/50 - Loss: 1.2275
+Epoch  25/50 - Loss: 1.1491
+Epoch  30/50 - Loss: 1.0584
+Epoch  35/50 - Loss: 1.0123
+Epoch  40/50 - Loss: 0.9505
+Epoch  45/50 - Loss: 0.8854
+Epoch  50/50 - Loss: 0.8451
+
+Training complete!
+
+============================================================
+EVALUATION ON DEVELOPMENT SET
+============================================================
+
+📊 RESULTS:
+
+Emotion Intensity (MAE):     0.5283
+Empathy Intensity (MAE):     0.7541
+Polarity Classification Accuracy: 0.6505
+
+Detailed Polarity Classification Report:
+              precision    recall  f1-score   support
+
+    Negative     0.7397    0.3176    0.4444       170
+     Neutral     0.6183    0.7133    0.6624       436
+    Positive     0.6739    0.7266    0.6992       384
+
+    accuracy                         0.6505       990
+   macro avg     0.6773    0.5858    0.6020       990
+weighted avg     0.6607    0.6505    0.6393       990
+
+
+============================================================
+GENERATING TEST PREDICTIONS
+============================================================
+
+✅ Saved test predictions to: /Users/nishanthnagendran/Documents/UIC related/repos/421_Project_UIC/scripts/../outputs/predictions_ann_sbert.csv
+   Total predictions: 2316
+
+============================================================
+TRAINING COMPLETE
+============================================================
+
