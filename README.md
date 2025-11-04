@@ -356,5 +356,3 @@ Academic project for CS 421 - Natural Language Processing at UIC.
   - Sentence-BERT (UKP Lab)
   - BERT (Google Research)
 - **Course:** CS 421 taught at University of Illinois Chicago
-
----
