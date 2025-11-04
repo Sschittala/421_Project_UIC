@@ -1,0 +1,180 @@
+============================================================
+Q4: EXTRACTING 5 CONVERSATIONS FOR LLM PROMPTING
+============================================================
+
+Selected Conversation IDs: [68, 72, 74, 80, 85]
+
+
+============================================================
+CONVERSATION 1 (ID: 68)
+============================================================
+
+Turn 1: Hello how are you?
+  [Ground Truth: Emotion=1.0, Polarity=1.0, Empathy=1.0]
+
+Turn 2: Hello! Fine. How are you?
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=2.0]
+
+Turn 3: I'm good thanks for asking!
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=2.0]
+
+Turn 4: That's good, so I guess we are supposed to discuss the article. I wonder, if my family or I were in a place where my very life was at risk, what would I do?
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=3.0]
+
+Turn 5: That's a very scary thought to have honestly
+  [Ground Truth: Emotion=3.0, Polarity=2.0, Empathy=4.0]
+
+Turn 6: Yes, I think it is something most people rather not imagine. But it is a reality. 
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=3.0]
+
+Turn 7: becoming more and more of a realityeveryday
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=3.0]
+
+Turn 8: Yes, it is sad for those who have to make hard decision. Sad also to hear people be so unsympathetic.
+  [Ground Truth: Emotion=3.0, Polarity=2.0, Empathy=4.0]
+
+Turn 9: Yes and why is America taking so few refugees?
+  [Ground Truth: Emotion=3.0, Polarity=1.0, Empathy=3.0]
+
+Turn 10: Not sure, I guess refugees are not top priority for anyone.
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=2.0]
+
+============================================================
+CONVERSATION 2 (ID: 72)
+============================================================
+
+Turn 1: hello anyone there?
+  [Ground Truth: Emotion=1.0, Polarity=1.0, Empathy=1.0]
+
+Turn 2: hi
+  [Ground Truth: Emotion=1.0, Polarity=1.0, Empathy=1.0]
+
+Turn 3: did we read the same article? 
+  [Ground Truth: Emotion=1.0, Polarity=1.0, Empathy=1.0]
+
+Turn 4: Was yours about an explosion?
+  [Ground Truth: Emotion=1.0, Polarity=1.0, Empathy=1.0]
+
+Turn 5: yeah, some guy stopped to sell fuel then boom!
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=1.0]
+
+Turn 6: yeah 73 people died
+  [Ground Truth: Emotion=1.0, Polarity=2.0, Empathy=2.0]
+
+Turn 7: what was your first reaction? 
+  [Ground Truth: Emotion=1.0, Polarity=1.0, Empathy=1.0]
+
+Turn 8: I was not very suprised 
+  [Ground Truth: Emotion=1.0, Polarity=1.0, Empathy=1.0]
+
+Turn 9: really? why were you not surprised? 
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=1.0]
+
+Turn 10: It seems to happen often in africa and the thrid world
+  [Ground Truth: Emotion=1.0, Polarity=2.0, Empathy=1.0]
+
+============================================================
+CONVERSATION 3 (ID: 74)
+============================================================
+
+Turn 1: hello. Did you read the article?
+  [Ground Truth: Emotion=1.0, Polarity=1.0, Empathy=1.0]
+
+Turn 2: hello, yes I did read the article
+  [Ground Truth: Emotion=1.0, Polarity=1.0, Empathy=1.0]
+
+Turn 3: Such a tragedy. My first reaction was sadness. I felt so bad for them and their families.
+  [Ground Truth: Emotion=3.0, Polarity=2.0, Empathy=4.0]
+
+Turn 4: It is indeed a tragedy. My first reaction was surprise, given the number of people that perished. I also feel for their families.
+  [Ground Truth: Emotion=3.0, Polarity=2.0, Empathy=4.0]
+
+Turn 5:  Yes, surprise I felt that way too. I wonder what type of fire they said in the article that was burning near the tanker to cause it to explode and then they said another theory was a lightning strike. What do you think?
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=4.0]
+
+Turn 6: Lightning strike would be incredibly unlucky and uncommon. The article didn't seem to lean towards either theory. What do you think might have been the cause?
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=3.0]
+
+Turn 7:  Yeah, I see a lightning strike unlikely. They would use that as a reason I don't think I would believe that honestly. And there's no details though enough for me to even judge that I guess. They didn't really give too many details.
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=3.0]
+
+Turn 8: Yes, either way incredibly unfortunate. They stated that over a hundred people were injured in addition to the 73 that died and many tried to get to a nearby river. I'm sure the truth will come out with that many witnesses.
+  [Ground Truth: Emotion=2.0, Polarity=2.0, Empathy=4.0]
+
+Turn 9: yes whenever I read that part man, I cannot even imagine, trying to get into a river on fire that would just be god-awful 
+  [Ground Truth: Emotion=3.0, Polarity=2.0, Empathy=4.0]
+
+Turn 10: Yes, it made me think of some war photos that I have seen with bodies in vehicles from people that also died to I believe a bombing. I wonder who will be held responsible.
+  [Ground Truth: Emotion=3.0, Polarity=2.0, Empathy=4.0]
+
+============================================================
+CONVERSATION 4 (ID: 80)
+============================================================
+
+Turn 1: Hello?
+  [Ground Truth: Emotion=0.5, Polarity=1.0, Empathy=1.0]
+
+Turn 2: Hi. what did you think of the article?
+  [Ground Truth: Emotion=0.5, Polarity=1.0, Empathy=1.0]
+
+Turn 3: I am shocked that this would happen. I hate to wipe out the apes!
+  [Ground Truth: Emotion=4.0, Polarity=2.0, Empathy=4.0]
+
+Turn 4: yeag, but everywhere you goyou will probably effect some kind of animal.  What if they just replanted afterwards too?
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=2.0]
+
+Turn 5: Yup. I dig. I thought that the article was oddly written, but I caught the main idea of it.
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=1.0]
+
+Turn 6: I am glad I am not the only one who had a hard time understanding it.  I think we always have to make some sort of compromise bewteen humans and other beings. we can;t just let them dictate. but I think individuals and not governements need to do it themsleves
+  [Ground Truth: Emotion=2.5, Polarity=1.0, Empathy=1.0]
+
+Turn 7: Sure, It was written and then translated badly, I think.
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=1.0]
+
+Turn 8: yes, deinfitely not written by a native English speaker.  what would else could you gather though. I always wonder why peopel who believe in evolution try so hard to preserve species when it kind of goes against the whole idea. Maybe they could involve into something better adapted
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=2.0]
+
+Turn 9: What I get is that the apes (orangutans) are already at a 1700 population and then some kind of development for transport (or something) is being planned. My "feelings" are mostly subsumed by a cloud of mystery.
+  [Ground Truth: Emotion=2.0, Polarity=1.0, Empathy=2.0]
+
+Turn 10: I'm gonna run out of time. What was even meant by the depth?
+  [Ground Truth: Emotion=1.0, Polarity=1.0, Empathy=1.0]
+
+============================================================
+CONVERSATION 5 (ID: 85)
+============================================================
+
+Turn 1: Hello, good morning! How are you? 
+  [Ground Truth: Emotion=3.0, Polarity=0.0, Empathy=1.0]
+
+Turn 2: i am good. thanks
+  [Ground Truth: Emotion=1.0, Polarity=0.0, Empathy=1.0]
+
+Turn 3: I guess we can discuss the article now. Firs reaction is of sadness. 
+  [Ground Truth: Emotion=3.0, Polarity=2.0, Empathy=4.0]
+
+Turn 4: yes, exactly that. I was thinking that magnitudes of these calamities is the same everywhere but poorer countries are just not equipped to handle them
+  [Ground Truth: Emotion=2.0, Polarity=2.0, Empathy=3.0]
+
+Turn 5: It sems that Haiti is a truly devastated country. Earthquakes, hurricanes. Worse off is the economic collapse they live thorugh. 
+  [Ground Truth: Emotion=3.0, Polarity=2.0, Empathy=2.0]
+
+Turn 6: Some people really get the worst birth lottery
+  [Ground Truth: Emotion=3.0, Polarity=2.0, Empathy=2.0]
+
+Turn 7: Also they never really recovered from their 2010 earthquake, it seems the destrusction from then lingers on. 
+  [Ground Truth: Emotion=2.0, Polarity=2.0, Empathy=3.0]
+
+Turn 8: It is just so much harder when you are already poor and then you have to fight these natural disasters too. They really do need help
+  [Ground Truth: Emotion=3.0, Polarity=2.0, Empathy=3.0]
+
+Turn 9: Do you think Americans in general would support any help to Haiti? 
+  [Ground Truth: Emotion=1.0, Polarity=1.0, Empathy=2.0]
+
+Turn 10: I hope so. I know that people do care about those devastated by such disasters 
+  [Ground Truth: Emotion=2.0, Polarity=0.0, Empathy=3.0]
+
+============================================================
+Copy the conversations above for your LLM prompts!
+============================================================
