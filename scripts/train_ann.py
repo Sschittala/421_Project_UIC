@@ -228,3 +228,26 @@ print(f"   Total predictions: {len(pred_df)}\n")
 print(f"{'='*60}")
 print("TRAINING COMPLETE")
 print(f"{'='*60}\n")
+
+# ========== Q5: SAVE DEV PREDICTIONS ==========
+print("\n" + "="*60)
+print("SAVING DEV PREDICTIONS FOR Q5")
+print("="*60)
+
+model.eval()
+with torch.no_grad():
+    dev_e, dev_p, dev_emp = model(X_dev.to(device))
+    dev_e_pred = dev_e.cpu().squeeze().numpy()
+    dev_p_pred = dev_p.argmax(dim=1).cpu().numpy()
+    dev_emp_pred = dev_emp.cpu().squeeze().numpy()
+
+# Create predictions dataframe
+dev_pred_df = dev_df.copy()
+dev_pred_df['Emotion_pred'] = dev_e_pred
+dev_pred_df['Polarity_pred'] = dev_p_pred
+dev_pred_df['Empathy_pred'] = dev_emp_pred
+
+# Save
+output_path = os.path.join(OUT_DIR, f'dev_predictions_ann_{EMB_SUFFIX}.csv')
+dev_pred_df.to_csv(output_path, index=False)
+print(f"✅ Saved: {output_path}")
