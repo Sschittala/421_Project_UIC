@@ -1,7 +1,6 @@
-
 # CS 421 - Conversational Emotion & Empathy Prediction
 
-**Natural Language Processing - Project 1**  
+**Natural Language Processing - Project Part 1**  
 **University of Illinois Chicago**
 
 Multi-task deep learning models for predicting emotion intensity, emotional polarity, and empathy in conversational text.
@@ -357,5 +356,3 @@ Academic project for CS 421 - Natural Language Processing at UIC.
   - Sentence-BERT (UKP Lab)
   - BERT (Google Research)
 - **Course:** CS 421 taught at University of Illinois Chicago
-
----
