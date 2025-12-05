@@ -1,0 +1,26 @@
+conversation_id,turn_id,speaker,generated_text,Gold_Emotion (Int),BERT_Pred_Emotion,Gold_Polarity (Class),BERT_Pred_Polarity,Gold_Empathy (Int),BERT_Pred_Empathy
+398,6,52,I think it's a really sad thing and it shows how people can struggle with their self-worth.,2.667,-0.372,1,2,4.000,-0.033
+398,7,194,"Yeah, I agree. It's really hard to feel like you're not good enough.",2.000,-0.155,0,0,2.000,-0.166
+398,8,52,Definitely. I think it's important to remember that everyone has their own struggles and insecurities.,2.333,-0.274,0,0,3.667,-0.267
+398,9,194,"Yeah, and it's important to be kind to ourselves and others.",2.333,-0.337,1,0,3.667,-0.261
+398,10,52,Absolutely. It's important to practice self-love and acceptance.,2.667,-0.308,1,0,4.000,-0.306
+423,6,207,"Definitely. It's a delicate dance, trying to capture the nuances and complexities of real life in a short article.",3.000,-0.306,1,2,2.000,-0.015
+423,7,52,Absolutely. The challenge of storytelling is to do justice to the complexities and contradictions that exist in the world.,2.000,-0.247,1,0,2.000,-0.149
+423,8,207,"Yes, and to capture the humanity and resilience of individuals like Shelton, who have overcome incredible challenges.",3.000,-0.384,1,2,2.000,-0.323
+423,9,52,"Yes, it's important to celebrate those stories of resilience and transformation.",2.000,-0.291,1,0,2.000,-0.118
+423,10,207,I agree. It's a reminder that everyone has the potential to rise above their circumstances and make a positive impact.,3.000,-0.274,2,0,1.000,-0.052
+463,6,243,Yes and I think it's because of that lack of education.,4.000,-0.291,1,2,3.000,-0.225
+463,7,193,I think it's just a problem of apathy,3.000,-0.280,0,2,2.667,-0.189
+463,8,243,It's unfortunate. We don't seem to care about what happens to our planet.,4.667,-0.243,0,0,2.667,-0.224
+463,9,193,"Yes we do, but we're not doing anything about it",4.333,-0.322,0,2,2.667,-0.204
+463,10,243,"It's a hard thing to deal with, and i just don't know what to do.",3.333,-0.249,0,2,3.000,-0.152
+470,6,248,"It's sad, but I don't think it's fair to say that everyone who smokes will die of cancer.",1.667,-0.299,0,0,3.333,-0.232
+470,7,247,"I don't think it's fair to say that, but it's still a major risk factor. I know a lot of people who smoke and they're still alive, but it's not worth it.",1.667,-0.284,1,0,2.333,-0.119
+470,8,248,I understand.,2.000,-0.086,1,2,2.333,-0.182
+470,9,249,"I think it's a personal choice, but it's still important to educate people about the risks.",3.333,-0.299,2,0,4.000,-0.223
+470,10,250,I agree.,1.333,-0.254,1,2,2.333,-0.209
+476,6,250,"The flamingo, which was an ambassador for the park, was euthanized by veterinarians after suffering severe injuries.",4.000,-0.481,2,2,3.667,-0.378
+476,7,184,Corrao has been charged with aggravated animal cruelty and will be held in jail until his trial.,1.667,-0.418,1,2,0.667,-0.270
+476,8,250,The flamingo's death has sparked outrage among animal rights activists and park visitors.,2.333,-0.463,1,2,2.000,-0.251
+476,9,184,Park officials have since increased security measures to prevent similar incidents from occurring in the future.,2.000,-0.520,1,2,1.000,-0.288
+476,10,250,The flamingo's death serves as a reminder of the importance of protecting endangered species and respecting the natural habitats of animals.,3.333,-0.344,2,2,3.333,-0.176
