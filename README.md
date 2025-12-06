@@ -588,7 +588,7 @@ Academic project for CS 421 - Natural Language Processing at UIC.
 
 ---
 
-**Authors:** Nishanth Nagendran & Teammate  
+**Authors:** Nishanth Nagendran & Sai Chittala
 **Course:** CS 421 - Natural Language Processing  
 **University:** University of Illinois Chicago  
 **Date:** December 2025
